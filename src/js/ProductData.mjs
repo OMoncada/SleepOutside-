@@ -14,10 +14,11 @@ export default class ProductData {
   getData() {
     return fetch(this.path)
       .then(convertToJson)
-      .then((data) => data);
+      .then(function (data) { return data; });
   }
   async findProductById(id) {
     const products = await this.getData();
-    return products.find((item) => item.Id === id);
+    return products.find(function (item) { return item.Id === id; });
+
   }
 }
