@@ -1,4 +1,4 @@
-import { setLocalStorage, getParam, getLocalStorage } from "./utils.mjs";
+import { setLocalStorage, getParams, getLocalStorage } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
