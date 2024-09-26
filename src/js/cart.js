@@ -2,6 +2,14 @@ import { getLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("addToCart");
+
+  // Verificar si hay elementos en el carrito
+  if (!cartItems || cartItems.length === 0) {
+    document.querySelector(".product-list").innerHTML =
+      "<p>Tu carrito está vacío.</p>";
+    return; // Salir de la función si no hay productos
+  }
+
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
@@ -25,4 +33,5 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
-renderCartContents();
+// Llamada para renderizar el carrito al cargar la página
+document.addEventListener("DOMContentLoaded", renderCartContents);
