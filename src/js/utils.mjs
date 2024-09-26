@@ -13,15 +13,6 @@ export function getLocalStorage(key) {
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
-
-// helper to get parameter strings
-export function getParam(param) {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const product = urlParams.get(param);
-  return product;
-}
-
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
   qs(selector).addEventListener("touchend", (event) => {
@@ -29,4 +20,72 @@ export function setClick(selector, callback) {
     callback();
   });
   qs(selector).addEventListener("click", callback);
+}
+
+export function getParam(param) {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const paramValue = urlParams.get(param);
+
+  return paramValue;
+}
+
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = "afterbegin",
+  clear = false
+) {
+  if (clear) parentElement.innerHTML = "";
+  parentElement.insertAdjacentHTML(position, list.map(templateFn).join(""));
+}
+
+// w3 functions | team activity ⬇️
+
+export function renderWithTemplate(template, parentElement, data, callback) {
+  parentElement.innerHTML = template;
+  if (callback) {
+    callback(data);
+  }
+}
+
+export async function loadTemplate(path) {
+  try {
+    const response = await fetch(path);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return await response.text();
+  } catch (error) {
+    console.error("Failed to load template:", error);
+  }
+}
+
+export function updateCartItemCount() {
+  const cartCountElement = document.getElementById("cart-count");
+  if (cartCountElement) {
+    const cartItems = getLocalStorage("so-cart") || [];
+    const itemCount = cartItems.length;
+    cartCountElement.textContent = itemCount;
+  } else {
+    console.log("Cart count element not found");
+  }
+}
+
+export async function loadHeaderFooter() {
+  const headerTemplate = await loadTemplate("/partials/header.html");
+  const footerTemplate = await loadTemplate("/partials/footer.html");
+
+  const headerElement = document.getElementById("main-header");
+  const footerElement = document.getElementById("main-footer");
+
+  if (headerTemplate) {
+    renderWithTemplate(headerTemplate, headerElement);
+    updateCartItemCount();
+  }
+
+  if (footerTemplate) {
+    renderWithTemplate(footerTemplate, footerElement);
+  }
 }
