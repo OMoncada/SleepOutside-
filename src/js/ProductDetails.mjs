@@ -18,10 +18,15 @@ export default class ProductDetails {
     localStorage.setItem("so-cart", JSON.stringify(cartItems)); // Save updated cart
     //console.log("Product added to cart:", this.product);
     //console.log("Current Cart (localStorage):", cartItems);
+
+    // Dispatch a custom event to notify the cart count has been updated
+    window.dispatchEvent(new Event("cartUpdated"));
   }
 
+  
+
   renderProductDetails() {
-    const productContainer = document.getElementById("product-detail"); // Assume you have an element with this ID
+    const productContainer = document.getElementById("product-detail");
     if (this.product) {
       productContainer.innerHTML = `
         <img
