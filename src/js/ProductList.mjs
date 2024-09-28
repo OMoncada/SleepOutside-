@@ -1,6 +1,5 @@
 import { renderListWithTemplate } from "./utils.mjs"
 
-
 // Template function to generate product card HTML using template literals for now
 function productCardTemplate(product) {
   return `
@@ -21,7 +20,6 @@ export default class ProductListing {
     this.dataSource = dataSource;
     this.listElement = listElement;
   }
-
 
   async init() {
     try {
