@@ -1,12 +1,12 @@
 function updateCartCount() {
-    // Retrieve cart items from localStorage
-    const cartItems = JSON.parse(localStorage.getItem("so-cart")) || [];
+  // Retrieve cart items from localStorage
+  const cartItems = JSON.parse(localStorage.getItem("so-cart")) || [];
 
-    // Get the cart count element
-    const cartCountElement = document.getElementById("cartCount");
+  // Get the cart count element
+  const cartCountElement = document.getElementById("cartCount");
 
-    // Set the badge text to the number of items in the cart
-    cartCountElement.textContent = cartItems.length;
+  // Set the badge text to the number of items in the cart
+  cartCountElement.textContent = cartItems.length;
 }
 
 // Call updateCartCount when the page loads to display the correct count
