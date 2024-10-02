@@ -46,8 +46,8 @@ function cartItemTemplate(item) {
 
 // Función para calcular y mostrar el total del carrito
 function calculateTotal(cartItems) {
-  const totalElement = document.getElementById('total-amount');
-  const cartFooter = document.querySelector('.cart-footer');
+  const totalElement = document.getElementById("total-amount");
+  const cartFooter = document.querySelector(".cart-footer");
 
   // Inicializar total
   let total = 0;
@@ -60,9 +60,9 @@ function calculateTotal(cartItems) {
   // Mostrar el total
   if (total > 0) {
     totalElement.innerText = total.toFixed(2); // Muestra el total con 2 decimales
-    cartFooter.classList.remove('hide'); // Muestra el footer del carrito
+    cartFooter.classList.remove("hide"); // Muestra el footer del carrito
   } else {
-    cartFooter.classList.add('hide'); // Oculta el footer si no hay artículos
+    cartFooter.classList.add("hide"); // Oculta el footer si no hay artículos
   }
 }
 
