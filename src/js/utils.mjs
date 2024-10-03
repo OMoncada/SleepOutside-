@@ -2,34 +2,35 @@
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
-// or a more concise version if you are into that sort of thing:
-// export const qs = (selector, parent = document) => parent.querySelector(selector);
 
 // retrieve data from localstorage
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
+
 // save data to local storage
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
 
-
+// get URL parameters
 export function getParams(param) {
   const queryString = window.location.search; // Get the query string from the URL
   const urlParams = new URLSearchParams(queryString); // Create a URLSearchParams object
-  const value = urlParams.get(param); // Retrieve the parameter value
-  return value; // Return the parameter value
+  return urlParams.get(param); // Return the parameter value
 }
 
-
-// function to take a list of objects and a template and insert the objects as HTML into the DOM
+// function to render the list using a template function and a parent element
 export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
-  const htmlStrings = list.map(templateFn);
-  // if clear is true we need to clear out the contents of the parent.
+  //This will clear the parent element's content if the clear flag is true
   if (clear) {
     parentElement.innerHTML = "";
   }
+
+  // Si no se proporciona una lista, usamos solo la función de plantilla
+  const htmlStrings = list ? list.map(templateFn) : [templateFn()]; // Cambiado para manejar una función estática
+
+  // Insertamos el HTML generado en el elemento padre en la posición especificada
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
 
@@ -68,9 +69,12 @@ export async function loadHeaderFooter() {
 }
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
-  qs(selector).addEventListener("touchend", (event) => {
-    event.preventDefault();
-    callback();
-  });
-  qs(selector).addEventListener("click", callback);
+  const element = qs(selector);
+  if (element) {
+    element.addEventListener("touchend", (event) => {
+      event.preventDefault();
+      callback();
+    });
+    element.addEventListener("click", callback);
+  }
 }
