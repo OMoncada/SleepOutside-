@@ -22,7 +22,21 @@ export function getParams(param) {
   return value; // Return the parameter value
 }
 
-
+// function to take a list of objects and a template and insert the objects as HTML into the DOM
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = "afterbegin",
+  clear = false
+) {
+  const htmlStrings = list.map(templateFn);
+  // if clear is true we need to clear out the contents of the parent.
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+}
 // function to render the list using a template function and a parent element
 export function renderWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
   //This will clear the parent element's content if the clear flag is true
@@ -39,10 +53,20 @@ export function renderWithTemplate(templateFn, parentElement, list, position = "
   // Insert the generated HTML into the parent element at the specified position
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
-export function loadHeaderFooter() {
-  const header = document.getElementById("main-header");
-  const footer = document.getElementById("main-footer");
-  
+async function loadTemplate(path) {
+  const res = await fetch(path);
+  const template = await res.text();
+  return template;
+}
+// function to dynamically load the header and footer into a page
+export async function loadHeaderFooter() {
+  const headerTemplate = await loadTemplate("../partials/header.html");
+  const headerElement = document.querySelector("#main-header");
+  const footerTemplate = await loadTemplate("../partials/footer.html");
+  const footerElement = document.querySelector("#main-footer");
+
+  renderWithTemplate(headerTemplate, headerElement);
+  renderWithTemplate(footerTemplate, footerElement);
 }
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
