@@ -20,30 +20,9 @@ export function getParams(param) {
   return urlParams.get(param); // Return the parameter value
 }
 
-<<<<<<< HEAD
-// function to take a list of objects and a template and insert the objects as HTML into the DOM
-export function renderListWithTemplate(
-  templateFn,
-  parentElement,
-  list,
-  position = "afterbegin",
-  clear = false
-) {
-  const htmlStrings = list.map(templateFn);
-  // if clear is true we need to clear out the contents of the parent.
-  if (clear) {
-    parentElement.innerHTML = "";
-  }
-  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
-}
-// function to render the list using a template function and a parent element
-export function renderWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
-  //This will clear the parent element's content if the clear flag is true
-=======
 // Función para renderizar usando una plantilla y un elemento padre, manejando datos estáticos y callback opcional
 export function renderWithTemplate(templateFn, parentElement, list = null, position = "afterbegin", clear = false, callback) {
   // Limpia el contenido del elemento padre si se especifica 'clear'
->>>>>>> 189d5c9d3a73b4ecb59110fdfd3be5aac3ae0eea
   if (clear) {
     parentElement.innerHTML = "";
   }
@@ -62,23 +41,18 @@ export function renderWithTemplate(templateFn, parentElement, list = null, posit
     callback(list);
   }
 }
-async function loadTemplate(path) {
-  const res = await fetch(path);
-  const template = await res.text();
-  return template;
-}
+// async function loadTemplate(path) {
+//   const res = await fetch(path);
+//   const template = await res.text();
+//   return template;
+// }
 // function to dynamically load the header and footer into a page
-export async function loadHeaderFooter() {
-  const headerTemplate = await loadTemplate("../partials/header.html");
-  const headerElement = document.querySelector("#main-header");
-  const footerTemplate = await loadTemplate("../partials/footer.html");
-  const footerElement = document.querySelector("#main-footer");
-
-<<<<<<< HEAD
-  renderWithTemplate(headerTemplate, headerElement);
-  renderWithTemplate(footerTemplate, footerElement);
-}
-=======
+// export async function loadHeaderFooter() {
+//   const headerTemplate = await loadTemplate("../partials/header.html");
+//   const headerElement = document.querySelector("#main-header");
+//   const footerTemplate = await loadTemplate("../partials/footer.html");
+//   const footerElement = document.querySelector("#main-footer");
+// }
 // Función para cargar una plantilla HTML desde una ruta
 export async function loadTemplate(path) {
   try {
@@ -122,7 +96,6 @@ export async function loadHeaderFooter() {
 }
 
 
->>>>>>> 189d5c9d3a73b4ecb59110fdfd3be5aac3ae0eea
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
   const element = qs(selector);
