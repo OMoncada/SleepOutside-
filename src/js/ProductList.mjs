@@ -28,8 +28,10 @@ export default class ProductListing {
 
   async init() {
     try {
-      const products = await this.dataSource.getData();
-      const filteredProducts = this.filterProducts(products); // Filter products to the desired four
+      // const products = await this.dataSource.getData();
+      // const filteredProducts = this.filterProducts(products); // Filter products to the desired four
+      const list = await this.dataSource.getData(this.category);
+      const filteredProducts = this.filterProducts(list);
       this.renderList(filteredProducts); // Render the filtered product list
     } catch (error) {
       console.error("Error initializing ProductListing:", error);
