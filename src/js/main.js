@@ -15,7 +15,7 @@ const productListing = new ProductListing("tents", dataSource, listElement);
 productListing.init();
 
 async function loadHAndD() {
-    await loadHeaderFooter();
+  await loadHeaderFooter();
 }
 
 loadHAndD();

@@ -63,15 +63,9 @@ export default class ProductDetails {
         
         <p>
           <!-- Show original price crossed out if there's a discount -->
-<<<<<<< HEAD
-          ${isDiscounted ? `<span class="product-card__original-price">$${this.product.SuggestedRetailPrice.toFixed(2)}</span>` : ""}
-          <!-- Show the discounted price -->
-          <span class="${isDiscounted ? "product-card__discount-price" : ""}">$${this.product.FinalPrice.toFixed(2)}</span>
-=======
           ${isDiscounted && suggestedRetailPrice ? `<span class="product-card__original-price">$${suggestedRetailPrice}</span>` : ""}
           <!-- Show the final price -->
           <span class="${isDiscounted ? "product-card__discount-price" : ""}">$${finalPrice}</span>
->>>>>>> 189d5c9d3a73b4ecb59110fdfd3be5aac3ae0eea
         </p>
         
         <button id="addToCart">Add to Cart</button>
