@@ -10,7 +10,6 @@ const category = getParams("category");
 const categoryNameElement = document.getElementById("category-name");
 categoryNameElement.innerText = "Top Products: " + category.charAt(0).toUpperCase() + category.slice(1); // Capitalize first letter
 
-
 // Create an instance of ProductData with the category 'tents'
 const dataSource = new ProductData();
 
@@ -22,3 +21,10 @@ const productListing = new ProductListing(category, dataSource, listElement);
 
 // Initialize the ProductListing to fetch data and render the product list
 productListing.init();
+
+// changes to the sort selection and re-render the sorted list
+const sortElement = document.getElementById("sort");
+sortElement.addEventListener("change", (event) => {
+    const sortedList = productListing.sortList(event.target.value);
+    productListing.renderList(sortedList);
+});
