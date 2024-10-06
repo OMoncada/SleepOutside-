@@ -17,7 +17,7 @@ loadHeaderFooter();
 productListing.init();
 
 async function init() {
-    await loadHeaderFooter();
+  await loadHeaderFooter();
 }
 
 init();

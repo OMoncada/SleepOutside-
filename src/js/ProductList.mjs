@@ -6,8 +6,8 @@ function productCardTemplate(product) {
 
   return `
     <li class="product-card">
-      <a href="product_pages/index.html?product=${product.Id}">
-        <img src="${product.Image}" alt="Image of ${product.Name}">
+      <a href="../product_pages/index.html?product=${product.Id}">
+        <img src="${product.Images.PrimaryMedium}" alt="Image of ${product.Name}">
         <h3 class="card__brand">${product.NameWithoutBrand}</h3>
         <h2 class="card__name">${product.Name}</h2>
         <p class="product-card__price">
@@ -24,24 +24,41 @@ export default class ProductListing {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
+    this.product = []; //Guardar la lista de productso para ordenarlos
   }
 
   async init() {
     try {
-      const products = await this.dataSource.getData();
-      const filteredProducts = this.filterProducts(products); // Filter products to the desired four
-      this.renderList(filteredProducts); // Render the filtered product list
+      const products = await this.dataSource.getData(this.category);
+      this.products = products; // Guardar productos en una variable de la clase
+      this.renderList(products); // Renderizar la lista
     } catch (error) {
       console.error("Error initializing ProductListing:", error);
     }
   }
 
-  // Filter function for the list of products to show only the four products we need for now
-  filterProducts(products) {
-    const idsToShow = ["880RR", "985RF", "985PR", "344YJ"]; // I manually replaced with actual IDs from your tents.json
+  // Método para ordenar la lista de productos por nombre o precio
+  sortList(criteria) {
+    let sortedList;
+    if (criteria === "name") {
+      sortedList = [...this.products].sort((a, b) => a.Name.localeCompare(b.Name));
+    } else if (criteria === "price") {
+      sortedList = [...this.products].sort((a, b) => a.FinalPrice - b.FinalPrice);
+    }
+    return sortedList;
+  }
+  // // Filter function for the list of products to show only the four products we need for now
+  // filterProducts(products) {
+  //   const idsToShow = ["880RR", "985RF", "985PR", "344YJ"]; // I manually replaced with actual IDs from your tents.json
 
-    // Filter the products array to only include the items with the specified IDs
-    return products.filter((product) => idsToShow.includes(product.Id));
+  //   // Filter the products array to only include the items with the specified IDs
+  //   return products.filter((product) => idsToShow.includes(product.Id));
+  // }
+
+  filterList(query) {
+    return this.products.filter(product =>
+      product.Name.toLowerCase().includes(query)
+    );
   }
 
   // This is the method to render the product list using the utility function

@@ -3,12 +3,12 @@ export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
 
-// retrieve data from localstorage
+// retrieve data from localStorage
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
 
-// save data to local storage
+// save data to localStorage
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
@@ -42,13 +42,22 @@ export function renderWithTemplate(template, parentElement, data, callback) {
     callback(data);
   }
 }
-function convertToText(value) {
-  if (typeof value === "number") {
-    return value.toString();
-  } else if (typeof value === "object") {
-    return JSON.stringify(value);
-  } else {
-    return String(value);
+
+// Función para cargar una plantilla HTML desde una ruta
+export async function loadTemplate(path) {
+  try {
+    const response = await fetch(path);
+    if (!response.ok) {
+      throw new Error(`Error al cargar la plantilla: ${response.statusText}`);
+    }
+
+    const text = await response.text(); // Obtenemos el contenido del HTML como texto
+    const template = document.createElement("template"); // Creamos un elemento <template>
+    template.innerHTML = text; // Insertamos el HTML cargado en el template
+    return template; // Devolvemos el template con el HTML cargado
+  } catch (error) {
+    //console.error("Error al cargar la plantilla:", error);
+    return null; // Retorna null en caso de error
   }
 }
 async function loadTemplate(path) {
@@ -59,13 +68,26 @@ async function loadTemplate(path) {
 }
 
 export async function loadHeaderFooter() {
-  const headerTemplate = await loadTemplate("../partials/header.html");
-  const footerTemplate = await loadTemplate("../partials/footer.html");
-  const headerElement = document.getElementById("main-header");
-  const footerElement = document.getElementById("main-footer");
+  try {
+    // Cargamos las plantillas de encabezado y pie de página
+    const headerTemplate = await loadTemplate("/partials/header.html"); // Actualiza con la ruta correcta
+    const footerTemplate = await loadTemplate("/partials/footer.html"); // Actualiza con la ruta correcta
 
-  renderWithTemplate(headerTemplate, headerElement);
-  renderWithTemplate(footerTemplate, footerElement);
+    // Aseguramos que las plantillas fueron cargadas correctamente
+    if (headerTemplate && footerTemplate) {
+      // Extraemos los elementos del template
+      const headerElement = headerTemplate.content.firstElementChild; // Suponiendo que el primer hijo es el header
+      const footerElement = footerTemplate.content.firstElementChild; // Suponiendo que el primer hijo es el footer
+
+      // Renderizamos el header y el footer en sus respectivos elementos en el DOM
+      renderWithTemplate(() => headerElement.outerHTML, document.querySelector("header"), null);
+      renderWithTemplate(() => footerElement.outerHTML, document.querySelector("footer"), null);
+    } else {
+      //console.error("Error: No se pudieron cargar las plantillas de header o footer.");
+    }
+  } catch (error) {
+    //console.error("Error al cargar header o footer:", error);
+  }
 }
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
