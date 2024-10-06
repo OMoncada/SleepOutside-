@@ -26,6 +26,9 @@ export function renderWithTemplate(templateFn, parentElement, list = null, posit
   if (clear) {
     parentElement.innerHTML = "";
   }
+  if (templateFn) {
+    templateFn(list);
+  }
 
   // Si no se proporciona una lista, usamos solo la función de plantilla
   const htmlStrings = list ? list.map(templateFn) : [templateFn()]; // Cambiado para manejar una función estática
@@ -38,7 +41,18 @@ export function renderWithTemplate(templateFn, parentElement, list = null, posit
     callback(list);
   }
 }
-
+// async function loadTemplate(path) {
+//   const res = await fetch(path);
+//   const template = await res.text();
+//   return template;
+// }
+// function to dynamically load the header and footer into a page
+// export async function loadHeaderFooter() {
+//   const headerTemplate = await loadTemplate("../partials/header.html");
+//   const headerElement = document.querySelector("#main-header");
+//   const footerTemplate = await loadTemplate("../partials/footer.html");
+//   const footerElement = document.querySelector("#main-footer");
+// }
 // Función para cargar una plantilla HTML desde una ruta
 export async function loadTemplate(path) {
   try {

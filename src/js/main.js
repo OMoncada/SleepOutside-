@@ -18,4 +18,4 @@ async function init() {
   await loadHeaderFooter();
 }
 
-init();
+loadHAndD();
