@@ -8,7 +8,8 @@ const category = getParams("category");
 
 // Display the category name
 const categoryNameElement = document.getElementById("category-name");
-categoryNameElement.innerText = "Top Products: " + category.charAt(0).toUpperCase() + category.slice(1); // Capitalize first letter
+categoryNameElement.innerText =
+  "Top Products: " + category.charAt(0).toUpperCase() + category.slice(1); // Capitalize first letter
 
 // Create an instance of ProductData with the category 'tents'
 const dataSource = new ProductData();
@@ -25,6 +26,16 @@ productListing.init();
 // changes to the sort selection and re-render the sorted list
 const sortElement = document.getElementById("sort");
 sortElement.addEventListener("change", (event) => {
-    const sortedList = productListing.sortList(event.target.value);
-    productListing.renderList(sortedList);
+  const sortedList = productListing.sortList(event.target.value);
+  productListing.renderList(sortedList);
+});
+
+//Sort list by name and re-render the sorted list
+const searchInput = document.getElementById("searchInput");
+searchInput.addEventListener("keyup", (event) => {
+  const query = event.target.value.toLowerCase();
+
+  // Filter productor by name
+  const filteredList = productListing.filterList(query);
+  productListing.renderList(filteredList);
 });
