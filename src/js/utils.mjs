@@ -60,12 +60,12 @@ export async function loadTemplate(path) {
     return null; // Retorna null en caso de error
   }
 }
-async function loadTemplate(path) {
-  const res = await fetch(path);
-  // const template = await res.text();
-  const template = convertToText(res);
-  return template;
-}
+// async function loadTemplate(path) {
+//   const res = await fetch(path);
+//   // const template = await res.text();
+//   const template = convertToText(res);
+//   return template;
+// }
 
 export async function loadHeaderFooter() {
   try {
