@@ -11,11 +11,6 @@ const listElement = document.getElementById("product-list");
 // Create an instance of the ProductListing class
 const productListing = new ProductListing("tents", dataSource, listElement);
 
+loadHeaderFooter();
 // Initialize the ProductListing to fetch data and render the product list
 productListing.init();
-
-async function init() {
-  await loadHeaderFooter();
-}
-
-init();
