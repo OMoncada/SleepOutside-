@@ -23,10 +23,3 @@ const productListing = new ProductListing(category, dataSource, listElement);
 
 // Initialize the ProductListing to fetch data and render the product list
 productListing.init();
-
-fetch("/json/alertmessage.json")
-  .then((response) => response.json())
-  .then((data) => {
-    Alert.createAlertsFromJson(data);
-  })
-  .catch((error) => console.error("Error Loading Alerts:", error));

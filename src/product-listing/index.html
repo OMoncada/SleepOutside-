@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/style.css" />
     <script type="module" src="../js/product-listing.js"></script>
     <script src="../js/productCount.js" type="module"></script>
-    <script type="module" src="../js/product-listing.js"></script>
+    
   </head>
 
   <body>
@@ -63,7 +63,15 @@
         </p>
       </section>
       <section class="products">
-        <h2 id="category-name">Top Products</h2>
+        <h2 id="category-name">Top Products: <span class="title"></span></h2>
+        <div class="searchOptions">
+          <label for="sort">Sort by:</label>
+          <select id="sort" name="sort">
+            <option value="name">Name</option>
+            <option value="price">Price</option>
+          </select>
+          <input type="text" id="searchInput" placeholder="Search by name..." />
+        </div>
         <ul id="product-list" class="product-list"></ul>
       </section>
     </main>
