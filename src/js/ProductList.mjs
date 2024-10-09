@@ -24,7 +24,7 @@ export default class ProductListing {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
-    this.product = []; //Guardar la lista de productso para ordenarlos
+    this.products = []; //Guardar la lista de productso para ordenarlos
   }
 
   async init() {
