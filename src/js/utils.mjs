@@ -20,9 +20,9 @@ export function getParams(param) {
   return urlParams.get(param); // Return the parameter value
 }
 
-// Función para renderizar usando una plantilla y un elemento padre, manejando datos estáticos y callback opcional
-export function renderWithTemplate(templateFn, parentElement, list = null, position = "afterbegin", clear = false, callback) {
-  // Limpia el contenido del elemento padre si se especifica 'clear'
+// function to render the list using a template function and a parent element
+export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
+  //This will clear the parent element's content if the clear flag is true
   if (clear) {
     parentElement.innerHTML = "";
   }
@@ -32,10 +32,14 @@ export function renderWithTemplate(templateFn, parentElement, list = null, posit
 
   // Insertamos el HTML generado en el elemento padre en la posición especificada
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+}
 
-  // Si hay un callback proporcionado, lo ejecutamos
+// function to take an optional object and a template and insert the objects as HTML into the DOM
+export function renderWithTemplate(template, parentElement, data, callback) {
+  parentElement.insertAdjacentHTML("afterbegin", template);
+  //if there is a callback...call it and pass data
   if (callback) {
-    callback(list);
+    callback(data);
   }
 }
 
@@ -56,8 +60,13 @@ export async function loadTemplate(path) {
     return null; // Retorna null en caso de error
   }
 }
+// async function loadTemplate(path) {
+//   const res = await fetch(path);
+//   // const template = await res.text();
+//   const template = convertToText(res);
+//   return template;
+// }
 
-// Función para cargar y renderizar los encabezados y pies de página
 export async function loadHeaderFooter() {
   try {
     // Cargamos las plantillas de encabezado y pie de página
@@ -80,7 +89,6 @@ export async function loadHeaderFooter() {
     //console.error("Error al cargar header o footer:", error);
   }
 }
-
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
   const element = qs(selector);
