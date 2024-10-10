@@ -1,5 +1,5 @@
-// CheckoutProcess.mjs
-import { getLocalStorage } from "./utils.mjs"; // Import the getLocalStorage function
+import { getLocalStorage } from "./utils.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 
 export default class CheckoutProcess {
   constructor(key, outputSelector) {
@@ -47,4 +47,64 @@ export default class CheckoutProcess {
     document.querySelector(this.outputSelector.tax).innerText = this.tax.toFixed(2);
     document.querySelector(this.outputSelector.total).innerText = this.orderTotal.toFixed(2);
   }
+
+  // Convert the form data into an order object
+  formDataToJSON(formElement) {
+    const formData = new FormData(formElement),
+      convertedJSON = {};
+
+    formData.forEach(function(value, key) {
+      convertedJSON[key] = value;
+    });
+
+    return convertedJSON;
+  }
+
+  // Prepare the items part of the order data
+  packageItems(items) {
+    return items.map(item => ({
+      id: item.Result.Id, // Product ID
+      name: item.Result.Name, // Product name
+      price: item.Result.FinalPrice, // Product price
+      quantity: item.Result.Quantity || 1, // Quantity (default to 1 if not available)
+    }));
+  }
+
+  // Handle the checkout process (submit the order)
+  async checkout(form) {
+    const formData = this.formDataToJSON(form); // Convert form data to JSON
+
+    // Prepare the items list
+    const items = this.packageItems(this.list);
+
+    // Build the complete order data object
+    const orderData = {
+      orderDate: new Date().toISOString(),
+      fname: formData.firstname,
+      lname: formData.lastname,
+      street: formData.address,
+      city: formData.city,
+      state: formData.state,
+      zip: formData.zip,
+      cardNumber: formData.cardNumber,
+      expiration: formData.expiration,
+      code: formData.securityCode,
+      items: items,
+      orderTotal: this.orderTotal.toFixed(2),
+      shipping: this.shipping,
+      tax: this.tax.toFixed(2)
+    };
+
+    //console.log("OrderData", orderData)
+
+    //Send the order data to the server
+    const externalServices = new ExternalServices();
+    try {
+      const response = await externalServices.checkout(orderData);
+      alert("Order Submitted successfully", response);
+    } catch (error) {
+      alert("Error submitting order", error)
+    }
+  }
+  
 }

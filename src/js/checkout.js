@@ -36,6 +36,13 @@ document.getElementById("zip").addEventListener("input", (event) => {
   }
 });
 
+// Handle form submission for checkout
+document.getElementById("checkout-form").addEventListener("submit", (event) => {
+  event.preventDefault(); // Prevent the default form submission
+
+  checkout.checkout(event.target); // Call checkout with the form element
+});
+
 
 // // Validate the form on submission
 // document.getElementById("checkout-form").addEventListener("submit", function(event) {
