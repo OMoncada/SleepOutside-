@@ -29,4 +29,5 @@ fetch("/json/alertmessage.json")
   .then((data) => {
     Alert.createAlertsFromJson(data);
   })
+  // eslint-disable-next-line no-console
   .catch((error) => console.error("Error loading alerts:", error));
