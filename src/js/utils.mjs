@@ -64,13 +64,13 @@ export function renderWithTemplate(templateFn, parentElement, list = null, posit
 }
 
 // function to take an optional object and a template and insert the objects as HTML into the DOM
-export function renderWithTemplate(template, parentElement, data, callback) {
-  parentElement.insertAdjacentHTML("afterbegin", template);
-  //if there is a callback...call it and pass data
-  if (callback) {
-    callback(data);
-  }
-}
+// export function renderWithTemplate(template, parentElement, data, callback) {
+//   parentElement.insertAdjacentHTML("afterbegin", template);
+//   //if there is a callback...call it and pass data
+//   if (callback) {
+//     callback(data);
+//   }
+// }
 
 // Función para cargar una plantilla HTML desde una ruta
 export async function loadTemplate(path) {
