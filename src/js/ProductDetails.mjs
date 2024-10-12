@@ -149,7 +149,7 @@ export default class ProductDetails {
       const suggestedRetailPrice = this.product.Result.SuggestedRetailPrice ? this.product.Result.SuggestedRetailPrice.toFixed(2) : null;
       const isDiscounted = this.product.Result.FinalPrice < this.product.Result.SuggestedRetailPrice;
       
-      const resizedProductImage = resizedImage();
+      const resizedProductImage = resizedImage(this.product.Image);
       // Render the product details HTML
       productContainer.innerHTML = `
         <img
