@@ -14,5 +14,3 @@ loadHeaderFooter();
 
 // Initialize the ProductListing to fetch data and render the product list
 productListing.init();
-
-
