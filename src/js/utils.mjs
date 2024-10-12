@@ -129,3 +129,24 @@ export function setClick(selector, callback) {
     element.addEventListener("click", callback);
   }
 }
+export function resizedImage(){
+  window.addEventListener('resize', () => {
+    const productImage = this.product.image;
+    const productImageWidth = productImage.style.width;
+    const productImageHeight = productImage.style.height;
+    if ( window.innerWidth <= 1050 || window.innerWidth > 670) {
+      const newProductImageWidth = productImageHeight/2;
+      const newProductImageHeight = productImageWidth/2;
+      productImage.style.width = newProductImageWidth;
+      productImage.style.height = newProductImageHeight;
+      return productImage;
+    }
+    if ( window.innerWidth <= 670) {
+      const newProductImageWidth = productImageHeight/4;
+      const newProductImageHeight = productImageWidth/4;
+      productImage.style.width = newProductImageWidth;
+      productImage.style.height = newProductImageHeight;
+      return productImage;
+    }
+  });
+}

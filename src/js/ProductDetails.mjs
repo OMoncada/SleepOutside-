@@ -1,3 +1,4 @@
+import { resizedImage } from "./utils.mjs";
 // export default class ProductDetails {
 //   constructor(productId, dataSource) {
 //     this.productId = productId; // Store the product ID
@@ -129,10 +130,13 @@ export default class ProductDetails {
       // Check if the product is discounted
       const isDiscounted = this.product.FinalPrice < this.product.SuggestedRetailPrice;
 
+      const resizedProductImage = resizedImage();
+
       // Generate the HTML for product details
       productContainer.innerHTML = `
         <img
-          src="${this.product.Image}"
+          // src="${this.product.Image}"
+          src="${resizedProductImage}"
           alt="${this.product.Name}"
         />
         <h1>${this.product.Name}</h1>
