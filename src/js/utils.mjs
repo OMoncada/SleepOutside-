@@ -61,12 +61,16 @@ export function renderWithTemplate(templateFn, parentElement, list = null, posit
 
   // Insertamos el HTML generado en el elemento padre en la posición especificada
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
-
-  // Si hay un callback proporcionado, lo ejecutamos
-  if (callback) {
-    callback(list);
-  }
 }
+
+// function to take an optional object and a template and insert the objects as HTML into the DOM
+// export function renderWithTemplate(template, parentElement, data, callback) {
+//   parentElement.insertAdjacentHTML("afterbegin", template);
+//   //if there is a callback...call it and pass data
+//   if (callback) {
+//     callback(data);
+//   }
+// }
 
 // Función para cargar una plantilla HTML desde una ruta
 export async function loadTemplate(path) {
@@ -85,8 +89,13 @@ export async function loadTemplate(path) {
     return null; // Retorna null en caso de error
   }
 }
+// async function loadTemplate(path) {
+//   const res = await fetch(path);
+//   // const template = await res.text();
+//   const template = convertToText(res);
+//   return template;
+// }
 
-// Función para cargar y renderizar los encabezados y pies de página
 export async function loadHeaderFooter() {
   try {
     // Cargamos las plantillas de encabezado y pie de página
@@ -109,7 +118,6 @@ export async function loadHeaderFooter() {
     //console.error("Error al cargar header o footer:", error);
   }
 }
-
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
   const element = qs(selector);
@@ -120,4 +128,25 @@ export function setClick(selector, callback) {
     });
     element.addEventListener("click", callback);
   }
+}
+export function resizedImage(product){
+  window.addEventListener('resize', () => {
+    const productImage = product.image;
+    const productImageWidth = productImage.style.width;
+    const productImageHeight = productImage.style.height;
+    if ( window.innerWidth <= 700 || window.innerWidth > 500) {
+      const newProductImageWidth = productImageHeight/2;
+      const newProductImageHeight = productImageWidth/2;
+      productImage.style.width = newProductImageWidth;
+      productImage.style.height = newProductImageHeight;
+      return productImage;
+    }
+    if ( window.innerWidth <= 500) {
+      const newProductImageWidth = productImageHeight/4;
+      const newProductImageHeight = productImageWidth/4;
+      productImage.style.width = newProductImageWidth;
+      productImage.style.height = newProductImageHeight;
+      return productImage;
+    }
+  });
 }
