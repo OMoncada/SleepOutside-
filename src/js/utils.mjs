@@ -132,8 +132,9 @@ export function setClick(selector, callback) {
 export function resizedImage(product){
   window.addEventListener('resize', () => {
     // const productImage = product.image;
-    const productImageWidth = product.style.width;
-    const productImageHeight = product.style.height;
+    const defaultWidth = "200px";
+    const productImageWidth = product.style.width || defaultWidth;
+    const productImageHeight = product.style.height || defaultWidth;
     if ( window.innerWidth <= 700 || window.innerWidth > 500) {
       const newProductImageWidth = productImageHeight/2;
       const newProductImageHeight = productImageWidth/2;
