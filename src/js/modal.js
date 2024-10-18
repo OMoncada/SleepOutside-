@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     modal.style.display = "block"; // Show the modal
 
-    // Close the modal funtion
+    // Close the modal function
     closeBtn.onclick = function () {
       modal.style.display = "none";
       // Mark that the user has seen the modal
